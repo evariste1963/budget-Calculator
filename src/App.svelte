@@ -1,10 +1,13 @@
 <script>
+  // https://www.youtube.com/watch?v=uk1eM0Yn0UQ
+  import Navbar from "./Navbar.svelte";
+  import Title from "./Title.svelte";
 </script>
 
-// https://www.youtube.com/watch?v=uk1eM0Yn0UQ
-<main>
-  <i class="fas fa-home fa-5x" />
-</main>
+<Navbar />
+<Title title="add expense" />
+<Title title="expense list" />
+<Title />
 
 <style>
 </style>
