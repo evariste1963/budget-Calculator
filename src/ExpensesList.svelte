@@ -8,7 +8,7 @@
   <SectionTitle title="expense list" />
   <ul>
     {#each expenses as expense, index}
-      <Expense {expense} />
+      <Expense {...expense} />
     {:else}
       <h2>you do not have any current expenses</h2>
     {/each}
