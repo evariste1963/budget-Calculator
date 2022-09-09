@@ -7,8 +7,16 @@
 <section>
   <SectionTitle title="expense list" />
   <ul>
-    {#each expenses as expense}
-      <Expense />
+    {#each expenses as expense, index}
+      <Expense {expense} />
+    {:else}
+      <h2>you do not have any current expenses</h2>
     {/each}
   </ul>
 </section>
+
+<style>
+  h2 {
+    text-transform: capitalize;
+  }
+</style>
