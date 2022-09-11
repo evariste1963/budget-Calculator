@@ -1,7 +1,7 @@
 <script>
   export let name = "",
-    amount = 0,
-    id;
+    amount = 0;
+  // id;
   let displayAmount = false;
 
   const toggleAmount = () => {
