@@ -22,7 +22,7 @@
       </button>
     </h2>
     {#if displayAmount}
-      <h4>amount :${amount}</h4>
+      <h4>amount :£{amount}</h4>
     {/if}
   </div>
   <div class="expense-buttons">
