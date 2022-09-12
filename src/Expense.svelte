@@ -1,9 +1,9 @@
 <script>
   export let name = "",
-    amount = 0;
-  // id;
+    amount = 0,
+    id;
+  export let removeExpense;
   let displayAmount = false;
-
   const toggleAmount = () => {
     displayAmount = !displayAmount;
   };
@@ -29,7 +29,7 @@
     <button class="expense-btn edit-btn">
       <div class="fas fa-pen" />
     </button>
-    <button class="expense-btn delete-btn">
+    <button class="expense-btn delete-btn" on:click={() => removeExpense(id)}>
       <div class="fas fa-trash" />
     </button>
   </div>
