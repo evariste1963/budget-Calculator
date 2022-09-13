@@ -8,13 +8,18 @@
   import ExpensesList from "./ExpensesList.svelte";
   //data
   import expensesData from "./expenses";
+  import Totals from "./Totals.svelte";
+  import ExpenseForm from "./ExpenseForm.svelte";
 
   //variables
   let expenses = [...expensesData];
 
+  //reactive variables
+  $: totalExpenses = expenses.reduce((acc, cur) => (acc += cur.amount), 0);
+
   //functions
   function removeExpense(id) {
-    expenses = expenses.filter(item => item.id !== id);
+    expenses = expenses.filter((item) => item.id !== id);
   }
 
   function clearExpenses() {
@@ -27,6 +32,8 @@
 <Navbar />
 
 <main class="content">
+  <ExpenseForm />
+  <Totals title="total Expenses" {totalExpenses} />
   <ExpensesList {expenses} />
   {#if expenses.length > 0}
     <button
