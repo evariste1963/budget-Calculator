@@ -25,6 +25,12 @@
   function clearExpenses() {
     expenses = [];
   }
+
+  function addExpense({ name, amount }) {
+    let expense = { id: Math.random() * Date.now(), name, amount };
+    expenses = [expense, ...expenses];
+    console.log(name, amount);
+  }
   //context
   setContext("remove", removeExpense);
 </script>
@@ -32,7 +38,7 @@
 <Navbar />
 
 <main class="content">
-  <ExpenseForm />
+  <ExpenseForm {addExpense} />
   <Totals title="total Expenses" {totalExpenses} />
   <ExpensesList {expenses} />
   {#if expenses.length > 0}
