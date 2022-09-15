@@ -36,7 +36,7 @@
       class:disabled={isEmpty}
       disabled={isEmpty}>add expense</button
     >
-    <button type="button" class="close-btn"
+    <button type="button" class="close-btn" on:click
       ><i class="fas fa-times" />close</button
     >
   </form>

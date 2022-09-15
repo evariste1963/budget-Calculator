@@ -14,7 +14,7 @@
 
   //variables
   let expenses = [...expensesData];
-
+  let isFormOpen = false;
   //reactive variables
   $: totalExpenses = expenses.reduce((acc, cur) => (acc += cur.amount), 0);
 
@@ -30,17 +30,25 @@
   function addExpense({ name, amount }) {
     let expense = { id: Math.random() * Date.now(), name, amount };
     expenses = [expense, ...expenses];
-    console.log(name, amount);
+  }
+
+  function openForm() {
+    isFormOpen = true;
+  }
+
+  function closeForm() {
+    isFormOpen = false;
   }
 
   //context
   setContext("remove", removeExpense);
 </script>
 
-<Navbar />
-
+<Navbar on:click={openForm} />
 <main class="content">
-  <ExpenseForm {addExpense} />
+  {#if isFormOpen}
+    <ExpenseForm on:click={closeForm} {addExpense} />
+  {/if}
   <Totals title="total Expenses" {totalExpenses} />
   <ExpensesList {expenses} />
   {#if expenses.length > 0}
