@@ -1,6 +1,3 @@
-<script>
-</script>
-
 <nav class="nav">
   <div class="nav-center">
     <h1 class="nav-title">budget calculator</h1>
