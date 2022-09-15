@@ -6,6 +6,7 @@
   //components
   import Navbar from "./Navbar.svelte";
   import ExpensesList from "./ExpensesList.svelte";
+  import Button from "./Button.svelte";
   //data
   import expensesData from "./expenses";
   import Totals from "./Totals.svelte";
@@ -19,7 +20,7 @@
 
   //functions
   function removeExpense(id) {
-    expenses = expenses.filter((item) => item.id !== id);
+    expenses = expenses.filter(item => item.id !== id);
   }
 
   function clearExpenses() {
@@ -31,6 +32,7 @@
     expenses = [expense, ...expenses];
     console.log(name, amount);
   }
+
   //context
   setContext("remove", removeExpense);
 </script>
@@ -42,11 +44,7 @@
   <Totals title="total Expenses" {totalExpenses} />
   <ExpensesList {expenses} />
   {#if expenses.length > 0}
-    <button
-      type="button"
-      class="btn btn-primary btn-block"
-      on:click={clearExpenses}>clear expenses</button
-    >
+    <Button on:click={clearExpenses} label="clear expenses" />
   {/if}
 </main>
 
