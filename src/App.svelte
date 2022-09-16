@@ -42,6 +42,10 @@
 
   function closeForm() {
     isFormOpen = false;
+    setId = null;
+    setName = "";
+    setAmount = null;
+    isEditing = false;
   }
 
   function setModifiedExpense(id) {
