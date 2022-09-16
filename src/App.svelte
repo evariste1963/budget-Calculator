@@ -1,6 +1,6 @@
 <script>
   // https://www.youtube.com/watch?v=uk1eM0Yn0UQ
-
+  import { fade } from "svelte/transition";
   import { setContext } from "svelte";
   //components
   import Navbar from "./Navbar.svelte";

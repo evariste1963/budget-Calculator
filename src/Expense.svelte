@@ -1,5 +1,6 @@
 <script>
   import { getContext } from "svelte";
+  import { slide } from "svelte/transition";
   export let name = "",
     amount = 0,
     id;
@@ -12,7 +13,7 @@
   const setModifiedExpense = getContext("modify");
 </script>
 
-<article class="single-expense">
+<article class="single-expense" transition:slide>
   <div class="expense-info">
     <h2>
       {name}
