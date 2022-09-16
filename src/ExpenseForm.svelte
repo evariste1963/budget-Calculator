@@ -1,5 +1,6 @@
 <script>
   import Title from "./Title.svelte";
+  import { slide } from "svelte/transition";
   export let addExpense;
   export let name = "";
   export let amount = null;
@@ -18,7 +19,7 @@
   }
 </script>
 
-<section class="form">
+<section class="form" transition:slide|local={{ duration: 700 }}>
   <Title title="add expense" />
   <form class="expense-form" on:submit|preventDefault={handleSubmit}>
     <div class="form-control">

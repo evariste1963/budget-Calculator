@@ -2,7 +2,6 @@
   // https://www.youtube.com/watch?v=uk1eM0Yn0UQ
 
   import { setContext } from "svelte";
-
   //components
   import Navbar from "./Navbar.svelte";
   import ExpensesList from "./ExpensesList.svelte";
@@ -25,7 +24,7 @@
 
   //functions
   function removeExpense(id) {
-    expenses = expenses.filter((item) => item.id !== id);
+    expenses = expenses.filter(item => item.id !== id);
   }
 
   function clearExpenses() {
@@ -47,14 +46,14 @@
 
   function setModifiedExpense(id) {
     openForm();
-    let expense = expenses.find((item) => item.id === id);
+    let expense = expenses.find(item => item.id === id);
     setId = expense.id;
     setName = expense.name;
     setAmount = expense.amount;
   }
 
   function editExpense({ name, amount }) {
-    expenses = expenses.map((item) => {
+    expenses = expenses.map(item => {
       return item.id === setId ? { ...item, name, amount } : { ...item };
     });
     setId = null;
@@ -78,8 +77,11 @@
       {editExpense}
     />
   {/if}
+
   <Totals title="total Expenses" {totalExpenses} />
+
   <ExpensesList {expenses} />
+
   {#if expenses.length > 0}
     <Button on:click={clearExpenses} label="clear expenses" />
   {/if}
