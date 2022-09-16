@@ -1,7 +1,6 @@
 <script>
   import { getContext } from "svelte";
-  import { fix_and_destroy_block } from "svelte/internal";
-  import { slide, fade } from "svelte/transition";
+  import { slide } from "svelte/transition";
   export let name = "",
     amount = 0,
     id;
