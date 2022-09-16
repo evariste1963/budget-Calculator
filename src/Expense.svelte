@@ -1,6 +1,7 @@
 <script>
   import { getContext } from "svelte";
-  import { slide } from "svelte/transition";
+  import { fix_and_destroy_block } from "svelte/internal";
+  import { slide, fade } from "svelte/transition";
   export let name = "",
     amount = 0,
     id;
@@ -26,7 +27,7 @@
       </button>
     </h2>
     {#if displayAmount}
-      <h4>amount :£{amount}</h4>
+      <h4 transition:slide>amount :£{amount}</h4>
     {/if}
   </div>
   <div class="expense-buttons">
