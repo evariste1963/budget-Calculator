@@ -2,6 +2,16 @@
   import SectionTitle from "./Title.svelte";
   import Expense from "./Expense.svelte";
   export let expenses = [];
+  customElements.define(
+    "delayed-content",
+    class extends HTMLElement {
+      connectedCallback() {
+        setTimeout(() => {
+          this.removeAttribute("hidden");
+        }, Number(this.getAttribute("delay")));
+      }
+    }
+  );
 </script>
 
 <section>
@@ -10,7 +20,9 @@
     {#each expenses as expense, index}
       <Expense {...expense} />
     {:else}
-      <h2>no expenses added to the list</h2>
+      <delayed-content delay="500" hidden>
+        <h2>no expenses added to the list</h2>
+      </delayed-content>
     {/each}
   </ul>
 </section>
