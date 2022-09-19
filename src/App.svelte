@@ -1,18 +1,34 @@
 <script>
   // https://www.youtube.com/watch?v=uk1eM0Yn0UQ
-  import { fade } from "svelte/transition";
-  import { setContext } from "svelte";
+  import {
+    setContext,
+    onMount,
+    onDestroy,
+    beforeUpdate,
+    afterUpdate,
+  } from "svelte";
   //components
   import Navbar from "./Navbar.svelte";
   import ExpensesList from "./ExpensesList.svelte";
   import Button from "./Button.svelte";
   //data
-  import expensesData from "./expenses";
+  //import expensesData from "./expenses";
   import Totals from "./Totals.svelte";
   import ExpenseForm from "./ExpenseForm.svelte";
 
+  onMount(() => {
+    expenses = localStorage.getItem("expenses")
+      ? JSON.parse(localStorage.getItem("expenses"))
+      : [];
+  });
+
+  //after update --> runs EVERY time the app does anything, so not always the best place to update this as it may slow things down if egtting form an API ect --> maybe better to call setLocoalStorage everytime it's actually necessary
+  afterUpdate(() => {
+    setLocalStorage();
+  });
+
   //variables
-  let expenses = [...expensesData];
+  let expenses = [];
   let isFormOpen = false;
   //set editing variables
   let setName = "";
@@ -24,7 +40,7 @@
 
   //functions
   function removeExpense(id) {
-    expenses = expenses.filter(item => item.id !== id);
+    expenses = expenses.filter((item) => item.id !== id);
   }
 
   function clearExpenses() {
@@ -50,14 +66,14 @@
 
   function setModifiedExpense(id) {
     openForm();
-    let expense = expenses.find(item => item.id === id);
+    let expense = expenses.find((item) => item.id === id);
     setId = expense.id;
     setName = expense.name;
     setAmount = expense.amount;
   }
 
   function editExpense({ name, amount }) {
-    expenses = expenses.map(item => {
+    expenses = expenses.map((item) => {
       return item.id === setId ? { ...item, name, amount } : { ...item };
     });
     setId = null;
@@ -67,6 +83,11 @@
   //context
   setContext("remove", removeExpense);
   setContext("modify", setModifiedExpense);
+
+  //local Storage
+  function setLocalStorage() {
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+  }
 </script>
 
 <Navbar on:click={openForm} />

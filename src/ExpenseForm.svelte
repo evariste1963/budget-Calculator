@@ -1,4 +1,5 @@
 <script>
+  
   import Title from "./Title.svelte";
   import { slide } from "svelte/transition";
   export let addExpense;
