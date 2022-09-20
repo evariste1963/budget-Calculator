@@ -15,6 +15,7 @@
   //import expensesData from "./expenses";
   import Totals from "./Totals.svelte";
   import ExpenseForm from "./ExpenseForm.svelte";
+  import Modal from "./Modal.svelte";
 
   onMount(() => {
     expenses = localStorage.getItem("expenses")
@@ -50,6 +51,7 @@
   function addExpense({ name, amount }) {
     let expense = { id: Math.random() * Date.now(), name, amount };
     expenses = [expense, ...expenses];
+    closeForm();
   }
 
   function openForm() {
@@ -79,6 +81,7 @@
     setId = null;
     setAmount = null;
     setName = "";
+    closeForm();
   }
   //context
   setContext("remove", removeExpense);
@@ -93,14 +96,16 @@
 <Navbar on:click={openForm} />
 <main class="content">
   {#if isFormOpen}
-    <ExpenseForm
-      on:click={closeForm}
-      {addExpense}
-      name={setName}
-      amount={setAmount}
-      {isEditing}
-      {editExpense}
-    />
+    <Modal>
+      <ExpenseForm
+        on:click={closeForm}
+        {addExpense}
+        name={setName}
+        amount={setAmount}
+        {isEditing}
+        {editExpense}
+      />
+    </Modal>
   {/if}
 
   <Totals title="total Expenses" {totalExpenses} />
