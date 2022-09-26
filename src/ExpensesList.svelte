@@ -22,8 +22,7 @@
   <ul>
     {#each expenses as expense, index (expense.id)}
       <div
-        in:fly={{ x: 200, delay: (index + 1) * 500 }}
-        out:fly={{ x: -200 }}
+        in:fly={{ x: 200, delay: (index + 1) * 700 }}
         animate:flip={{ duration: 1000 }}
       >
         <Expense {...expense} />
