@@ -1,18 +1,35 @@
 <script>
   // https://www.youtube.com/watch?v=uk1eM0Yn0UQ
-
-  import { setContext } from "svelte";
+  import {
+    setContext,
+    onMount,
+    onDestroy,
+    beforeUpdate,
+    afterUpdate,
+  } from "svelte";
   //components
   import Navbar from "./Navbar.svelte";
   import ExpensesList from "./ExpensesList.svelte";
   import Button from "./Button.svelte";
   //data
-  import expensesData from "./expenses";
+  //import expensesData from "./expenses";
   import Totals from "./Totals.svelte";
   import ExpenseForm from "./ExpenseForm.svelte";
+  import Modal from "./Modal.svelte";
+
+  onMount(() => {
+    expenses = localStorage.getItem("expenses")
+      ? JSON.parse(localStorage.getItem("expenses"))
+      : [];
+  });
+
+  //after update --> runs EVERY time the app does anything, so not always the best place to update this as it may slow things down if egtting form an API ect --> maybe better to call setLocoalStorage everytime it's actually necessary
+  afterUpdate(() => {
+    setLocalStorage();
+  });
 
   //variables
-  let expenses = [...expensesData];
+  let expenses = [];
   let isFormOpen = false;
   //set editing variables
   let setName = "";
@@ -34,6 +51,7 @@
   function addExpense({ name, amount }) {
     let expense = { id: Math.random() * Date.now(), name, amount };
     expenses = [expense, ...expenses];
+    closeForm();
   }
 
   function openForm() {
@@ -63,23 +81,31 @@
     setId = null;
     setAmount = null;
     setName = "";
+    closeForm();
   }
   //context
   setContext("remove", removeExpense);
   setContext("modify", setModifiedExpense);
+
+  //local Storage
+  function setLocalStorage() {
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+  }
 </script>
 
 <Navbar on:click={openForm} />
 <main class="content">
   {#if isFormOpen}
-    <ExpenseForm
-      on:click={closeForm}
-      {addExpense}
-      name={setName}
-      amount={setAmount}
-      {isEditing}
-      {editExpense}
-    />
+    <Modal>
+      <ExpenseForm
+        on:click={closeForm}
+        {addExpense}
+        name={setName}
+        amount={setAmount}
+        {isEditing}
+        {editExpense}
+      />
+    </Modal>
   {/if}
 
   <Totals title="total Expenses" {totalExpenses} />
