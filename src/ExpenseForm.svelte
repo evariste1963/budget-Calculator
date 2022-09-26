@@ -17,6 +17,13 @@
     name = "";
     amount = null;
   }
+
+  //workaround that makes FOCUS work all the time.
+  function autoFocus(el) {
+    setTimeout(() => {
+      el.focus();
+    }, 100);
+  }
 </script>
 
 <section class="form">
@@ -24,7 +31,7 @@
   <form class="expense-form" on:submit|preventDefault={handleSubmit}>
     <div class="form-control">
       <label for="name">name</label>
-      <input type="text" id="name" bind:value={name} />
+      <input type="text" id="name" bind:value={name} use:autoFocus />
     </div>
     <div class="form-control">
       <label for="amount">amount</label>
